@@ -12,7 +12,7 @@
 	<artifactId>webportal</artifactId>
 	<version>1.0</version>
 	<name>webportal</name>
-	<description>Ticket Web - Web Portal</description>
+	<description>Web Portal</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.1</spring-cloud.version>

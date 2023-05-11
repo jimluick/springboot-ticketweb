@@ -25,8 +25,8 @@ public class TicketReceiver {
     
     @Autowired
     private EventsServices eventsSvc;    
-    
-    @Bean(name = "ticketsreceiver")
+
+    @Bean(name = "tma03receiver")
     public Consumer<TicketsForm> input() {
         return form -> createTicket(form);
     }
@@ -60,16 +60,22 @@ public class TicketReceiver {
     private Events validate(TicketsForm form) throws MetrixException{
         Optional<Events> oEvent = eventsSvc.retrieve(form.getEventId());
 
+        //Check whether the event is present
         if(!oEvent.isPresent()){
             throw new MetrixException(-1, String.format("TicketReceiver::validate()::Event with Id [%d] not found", form.getEventId()), "");
         } else {
+            //Check whether the ticket is active and the corresponding event is start sell
             Events event = oEvent.get();
             if(!event.isStartSell()){
                 throw new MetrixException(-1, String.format("TicketReceiver::validate()::Event with Id [%d] not started yet", form.getEventId()), "");
             }
 
+            //Check whether the Venue of the event is full
+            //Get the number of seat
             int numOfSeat = event.getVenue().getNumberOfSeat();
+            //Get the total number of ticket for that event;
             int ticketSold = repo.getByEventsId(event.getId()).size();
+            //Get current ticket needed
             int ticketNeeded = form.getNumberOfTicket();
             if(ticketSold + ticketNeeded > numOfSeat){
                 throw new MetrixException(-1, String.format("TicketReceiver::validate()::Event with Id [%d] not started yet", form.getEventId()), "");

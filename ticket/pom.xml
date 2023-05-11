@@ -12,7 +12,7 @@
 	<artifactId>ticket</artifactId>
 	<version>1.0</version>
 	<name>ticket services</name>
-	<description>Ticket Web - Ticket Services</description>
+	<description>Ticket Services</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-cloud.version>2022.0.1</spring-cloud.version>
